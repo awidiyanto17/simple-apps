@@ -23,7 +23,13 @@ app.get('/app2', (req, res) => {
 
 app.get('/users', (req, res, next) => {
   const sql = "SELECT * FROM tb_data ORDER BY id desc"
-  connection.query(sql)
+  connection.query(sql,(error, fields) => {
+    if (error) {
+      console.log('error')
+    } else {
+      res.send(fields)
+    }
+  })
 });
 
 app.listen(process.env.APP_PORT, () => {
